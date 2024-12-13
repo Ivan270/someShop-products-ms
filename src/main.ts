@@ -8,14 +8,15 @@ import {MicroserviceOptions, Transport} from "@nestjs/microservices";
 
 async function bootstrap() {
     const logger = new Logger('Main')
+  console.log(envs.natsServers)
     const app = await NestFactory.createMicroservice<MicroserviceOptions>(
         AppModule,
         // segundo parametro es la configuracion de microservicio
         {
-            transport: Transport.TCP,
+            transport: Transport.NATS,
             // puerto donde escuchará la aplicación
             options: {
-                port: envs.port
+                servers: envs.natsServers
             }
         }
     );
